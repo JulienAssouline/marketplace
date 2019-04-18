@@ -22,7 +22,7 @@ module.exports = {
     // async getAllUsers(parent, _, { app, req, postgres }, info) {
     //   authenticate(app, req)
     //   const findUserQuery = {
-    //     text: 'SELECT * FROM boilerplate.users',        
+    //     text: 'SELECT * FROM boilerplate.users',
     //   }
     //   const user = await postgres.query(findUserQuery)
 

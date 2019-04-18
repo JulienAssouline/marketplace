@@ -52,7 +52,7 @@ const schema = makeExecutableSchema({
 const apolloServer = new ApolloServer({
   context: ({ req }) => {
     if (
-      req.headers.referer === 'http://localhost:8080/graphql' &&
+      req.headers.referer === 'http://localhost:8080/graphql' ||
       process.env.NODE_ENV !== 'production'
     ) {
       app.set('SKIP_AUTH', true)

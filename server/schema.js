@@ -10,8 +10,22 @@ module.exports = gql`
     getAllUsers: [User],
     user(id : ID): User,
     test: String!
-    #TODO 
+    #TODO
   }
+
+  type Mutation {
+    signUp(email: String!, password: String!): SignupResponse!
+    logIn(email: String!, password: String!): LoginResponse!
+  }
+
+  type SignupResponse {
+    message: String
+  }
+
+  type LoginResponse {
+    message: String
+  }
+
   type Test {
     name: String
   }

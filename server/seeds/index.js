@@ -28,7 +28,7 @@ const seed = async () => {
         pg.query(
           squel
             .insert()
-            .into('boiler.users')
+            .into("bazaar.users")
             .setFields(userSeed)
             .toParam()
         )
