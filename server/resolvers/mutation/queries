@@ -1,0 +1,63 @@
+mutation {
+  addItem(item_name: "toyota", item_type: "car", status: "cool car", price: 3012.92, inventory: 100, owner_id:1, item_description: "plz buy my car") {
+    message
+  }
+}
+
+mutation {
+  signUp(email: "julien@cool.com", password: "hello", fullname: "name", username: "no wat", status:"true", country: "canada") {
+    message
+  }
+}
+
+
+query{
+  getUserItem(id: 1) {
+    id,
+    item_name,
+    item_type,
+    status,
+    price,
+    inventory,
+    owner_id,
+    purchased_quantity,
+    transaction_id
+  }
+}
+
+
+query{
+  getAllItems {
+    item_name
+    owner {
+      fullname
+    }
+  }
+}
+
+
+mutation {
+  addItem(item_name: "cool", item_type: "car", status: "cool car", price: 3012.92, inventory: 100, owner_id:1, item_description: "plz buy my car") {
+    message
+  }
+}
+
+# query{
+#   getUsers {
+#     email
+#   }
+# }
+
+
+# Write your query or mutation here
+# mutation {
+#   addItem(item_name: "yay", item_type: "car", status: "cool car", price: 3012.92, inventory: 100, owner_id:1, item_description: "plz buy my car") {
+#     message
+#   }
+# }
+
+# mutation {
+#   signUp(email: "julien@cool.com", password: "hello", fullname: "name", username: "no wat", status:"true", country: "canada") {
+#     message
+#   }
+# }

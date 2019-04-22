@@ -2,10 +2,84 @@ const authenticate = require('../authenticate')
 
 module.exports = {
   Query: {
-    async test(parent, _, {postgres}, info){
-      const getUsers = await postgres.query('SELECT * FROM boilerplate.users')
-      return getUsers.rows[0].fullname
-    }
+    async getUserItem(parent, input, { req, app, postgres }) {
+        let itemId = input.id
+
+        const userItem = {
+        text: "SELECT * FROM bazaar.items WHERE id = $1",
+        values: [itemId]
+      }
+        const getUserItems = await postgres.query(userItem)
+        console.log('getUserItems, ', getUserItems)
+        const { id,
+            item_name,
+            item_type,
+            status,
+            price,
+            inventory,
+            owner_id,
+            purchased_quantity,
+            transaction_id } = getUserItems.rows[0]
+
+        return {
+            id,
+            item_name,
+            item_type,
+            status,
+            price,
+            inventory,
+            owner_id,
+            purchased_quantity,
+            transaction_id
+        }
+    },
+
+    async getAllItems(parent, input, { req, app, postgres }) {
+        const itemGotten = {
+        text: "SELECT id, item_name, owner_id FROM bazaar.items"
+      }
+      const insertItem = await postgres.query(itemGotten)
+      console.log(insertItem)
+
+      return insertItem.rows
+
+    },
+    async getUser(parent, input, { req, app, postgres }) {
+         let userId = input.id
+
+          const user = {
+          text: "SELECT * FROM bazaar.users WHERE id = $1",
+          values: [userId]
+        }
+
+        const userGotten = await postgres.query(user)
+        console.log(userGotten.rows[0])
+
+        const { id,
+            email,
+            fullname,
+            username,
+            status,
+            country } = userGotten.rows[0]
+
+        return {
+            id,
+            email,
+            fullname,
+            username,
+            status,
+            country
+        }
+    },
+    async getUsers(parent, input, { req, app, postgres }) {
+        const usersQuery = {
+        text: "SELECT email FROM bazaar.users"
+      }
+
+      const allUsers = await postgres.query(usersQuery)
+      return allUsers.rows
+    },
+
     // async user(parent, { id }, { app, req, postgres }, info) {
     //   authenticate(app, req)
     //   const findUserQuery = {
