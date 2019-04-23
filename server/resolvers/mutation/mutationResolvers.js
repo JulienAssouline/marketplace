@@ -77,13 +77,21 @@ module.exports = {
      },
 
      async buyItem(parent, input, { req, app, postgres }) {
+
+      /*
+1) CHeck if item is available
+2) Check if quantity is above zero
+3) Stripe
+4) Insert into purchased items
+      */
+
       let user_id = 1; // authenticate(req.headers['Authorization']) id of person who made the query
 
       let item_id = input.id,
           owner_id = user_id,
           shipping_status = "not shipped",
-          purchased_quantity = 1,
-          transaction_id = 1
+          purchased_quantity = input.purchased_quantity,
+          transaction_id = 10
 
       const getItem = {
         text: "SELECT * FROM bazaar.items WHERE id = $1",
@@ -104,41 +112,87 @@ module.exports = {
 
       const boughtItem = await postgres.query(boughtItemQuery)
 
-      // const updateObject = {
-      //   id: item_id,
-      //   inventory: newInventory
-      // }
-
-      // const updateQuery = buildUpdate(updateObject, 'id', 'bazaar.items')
-
-      // const updateResult = await postgres.query(updateQuery)
-
       const updateItem = {
         text: "UPDATE bazaar.items SET inventory = $1 WHERE id = $2",
         values: [newInventory, item_id]
       }
 
-      const updateResult2 = await postgres.query(updateItem)
+      const updateResult = await postgres.query(updateItem)
 
-      console.log(updateResult2)
+
+      const queryTransaction = {
+        text: "INSERT INTO bazaar.transactions (stripe_charge_id) VALUES ($1) RETURNING *",
+        values: [transaction_id]
+      }
+
+      const updateTransaction = await postgres.query(queryTransaction)
 
       return {
         message: `Item ${item_id} has been purchaded from ${purchased_from_id} and is ${shipping_status}`
       }
+     },
+
+     async updateItem(parent, input, { req, app, postgres }) {
+
+      let item_name = input.item_name
+      let item_id = input.id
+
+      const updateObject = {
+        id: item_id,
+        item_name: item_name
+      }
+
+      const updateItem = buildUpdate(updateObject, 'id', 'bazaar.items')
+
+      const getItemValue = await postgres.query(updateItem)
+
+      return {
+        message: "changed!"
+      }
+
+     },
+
+     async updateUser(parent, input, { req, app, postgres }) {
+        let user_id = input.id
+        let fullname = input.fullname
+
+        const updateObject = {
+          id: user_id,
+          fullname: fullname
+        }
+
+        const updateUser = buildUpdate(updateObject, 'id', 'bazaar.users')
+
+        const getUserValue = await postgres.query(updateUser)
+
+        return {
+          message: "user fullname updated"
+        }
+
+     },
+
+     async removeItem(parent, input, { req, app, postgres }) {
+
+      const removedItems = {
+        text: "INSERT INTO bazaar.removed_items SELECT * FROM bazaar.items WHERE id = $1",
+        values: [id]
+      }
+
+     const removedItemValue = await postgres.query(removedItems)
+     console.log(removedItemValue)
+
+      const deleteItem = {
+        text: "DELETE FROM bazaar.items WHERE id = $1",
+        values: [id]
+      }
+
+      const deleteItemValue = await postgres.query(deleteItem)
+
+      return {
+        message: "item removed"
+      }
      }
 
-     // async updateItem(parent, input, { req, app, postgres }) {
-     //  let item = input.item_name.toLowerCase()
-
-     //  const itemUpdated = {
-     //    text: "UPDATE bazaar.items SET status = deleted WHERE status"
-     //  }
-
-     //    return {
-     //      message: "item updated"
-     //    }
-     // }
-    /* TODO: Add more resolvers */
   }
 
 }

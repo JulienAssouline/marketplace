@@ -10,6 +10,7 @@ exports.up = pgm => {
       "status" TEXT,
       "country" TEXT,
       "date_created" DATE DEFAULT CURRENT_DATE,
+      "date_updated" DATE DEFAULT CURRENT_DATE,
       "rating" INT
     );
 
@@ -25,6 +26,7 @@ exports.up = pgm => {
     "inventory" INT,
     "owner_id" INT,
     "date_created" DATE DEFAULT CURRENT_DATE,
+    "date_updated" DATE DEFAULT CURRENT_DATE,
     "item_description" TEXT
     );
     `
@@ -46,6 +48,21 @@ exports.up = pgm => {
         "stripe_charge_id" INT,
         "date_of_purchase" DATE DEFAULT CURRENT_DATE
         );
-    `)
+    `),
+  pgm.sql(`
+    CREATE TABLE "bazaar"."removed_items"(
+    "id" SERIAL PRIMARY KEY,
+    "item_name" TEXT NOT NULL,
+    "item_type" TEXT,
+    "status" TEXT NOT NULL,
+    "price" NUMERIC,
+    "inventory" INT,
+    "owner_id" INT,
+    "date_created" DATE DEFAULT CURRENT_DATE,
+    "date_removed" DATE DEFAULT CURRENT_DATE,
+    "item_description" TEXT
+    );
+    `
+    )
   /* TODO: add more migrations */
 };

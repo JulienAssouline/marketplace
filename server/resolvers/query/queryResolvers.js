@@ -80,30 +80,34 @@ module.exports = {
       return allUsers.rows
     },
 
-    // async user(parent, { id }, { app, req, postgres }, info) {
-    //   authenticate(app, req)
-    //   const findUserQuery = {
-    //     text: 'SELECT * FROM boilerplate.users WHERE id = $1',
-    //     values: [id],
-    //   }
-    //   const user = await postgres.query(findUserQuery)
+    async getTransaction(parent, input, { req, app, postgres }) {
+         let transaction_id = input.id
 
-    //   if (user.rows.length < 1) {
-    //     throw 'User does not exist'
-    //   }
-    //   return user.rows[0]
-    // },
-    // async getAllUsers(parent, _, { app, req, postgres }, info) {
-    //   authenticate(app, req)
-    //   const findUserQuery = {
-    //     text: 'SELECT * FROM boilerplate.users',
-    //   }
-    //   const user = await postgres.query(findUserQuery)
+          const queryTransaction = {
+          text: "SELECT * FROM bazaar.transactions WHERE id = $1",
+          values: [transaction_id]
+        }
 
-    //   if (user.rows.length < 1) {
-    //     throw 'No users'
-    //   }
-    //   return user.rows
-    // },
+        const transaction = await postgres.query(queryTransaction)
+
+        const { id,
+            stripe_charge_id } = transaction.rows[0]
+
+        return {
+            id,
+            stripe_charge_id
+        }
+
+    },
+
+    async getTransactions(parent, input, { req, app, postgres }) {
+
+        const transactions = {
+            text: "SELECT * FROM bazaar.transactions"
+        }
+
+        const allTransactions = await postgres.query(transactions)
+        return allTransactions.rows
+    },
   },
 }

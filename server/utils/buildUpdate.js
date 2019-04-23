@@ -1,4 +1,5 @@
-const buildUpdate = (input, selector, table) => {
+const buildUpdate = (input, selector, table, isReturning) => {
+  const returning = isReturning === true ? "RETURNING *" : "";
   const validKeys = Object.keys(input).filter(
     key => input[key] != null && key != selector
   );
@@ -8,7 +9,7 @@ const buildUpdate = (input, selector, table) => {
   const queryValues = validKeys.map(key => input[key]);
   queryValues.unshift(input[selector]);
   return {
-    text: `UPDATE ${table} SET ${finalString} WHERE ${selector} = $1`,
+    text: `UPDATE ${table} SET ${finalString} WHERE ${selector} = $1 ${returning}`,
     values: queryValues
   };
 };
