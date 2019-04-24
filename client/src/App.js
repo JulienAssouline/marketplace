@@ -1,25 +1,38 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import { ApolloProvider} from "react-apollo"
+import apolloClient from "./apolloclient"
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+
+import Items from "./components/Items"
+import Users from "./components/Users"
+import LandingPage from "./components/LandingPage"
+import SignupForm from "./components/SignupForm"
+import LoginForm from "./components/LoginForm"
+
+
+
+              // <Route path="/about/" component={About} />
+              // <Route path="/Contact/" component={Contact} />
+
+
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+    <ApolloProvider client={apolloClient}>
+    <div className = "App">
+    <Router>
+      <Route path="/" exact component={LandingPage} />
+      <Route path="/signup" exact component={SignupForm} />
+      <Route path="/login" exact component={LoginForm} />
+      <Route path="/items" exact component = {Items} />
+      <Route path="/users" exact component = {Users} />
+    </Router>
     </div>
+    </ApolloProvider>
   );
 }
 

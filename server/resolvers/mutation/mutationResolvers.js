@@ -17,10 +17,10 @@ module.exports = {
 
       let email = input.email.toLowerCase();
       let hashedpassword = await bcrypt.hash(input.password, saltRounds);
-      let fullname = input.fullname.toLowerCase()
-      let username = input.username.toLowerCase()
-      let status = input.status.toLowerCase()
-      let country = input.country.toLowerCase()
+      let fullname = input.fullname
+      let username = input.username
+      let status = input.status
+      let country = input.country
       let date = input.date_created
 
       const newUserInsert = {
