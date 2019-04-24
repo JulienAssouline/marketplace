@@ -99,7 +99,7 @@ function SignupForm() {
                         className = "signup-password"
                         label= {(errors.password && touched.password) ? "Password is required!" : "Password"}
                         id = "password"
-                        type="text"
+                        type="password"
                         onChange={handleChange}
                         onBlur = {handleBlur}
                         value = {values.password}
@@ -108,7 +108,7 @@ function SignupForm() {
                       <TextField
                         error={errors.confirmpassword && touched.confirmpassword}
                         className = "signup-confirmpassword"
-                        type="text"
+                        type="password"
                         label= {(errors.confirmpassword && touched.confirmpassword) ? "Confirm Password is required!" : "Confirm Password"}
                         value = {values.confirmpassword}
                         id = "confirmpassword"
@@ -130,7 +130,7 @@ function SignupForm() {
                         variant="contained"
                         color="secondary"
                         type="button"
-                        className="outline"
+                        className="reset button"
                         onClick={handleReset}
                         disabled={!dirty || isSubmitting}
                       >
