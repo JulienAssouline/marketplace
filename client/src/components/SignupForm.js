@@ -80,6 +80,7 @@ function SignupForm(props) {
                         margin="normal"
                         />
                       <TextField
+                        required
                         error={errors.email && touched.email}
                         id= "email"
                         label= {(errors.email && touched.email) ? errors.email : "Email"}
@@ -91,6 +92,7 @@ function SignupForm(props) {
                         margin="normal"
                         />
                       <TextField
+                        required
                         error={errors.password && touched.password}
                         className = "signup-password"
                         label= {(errors.password && touched.password) ? "Password is required!" : "Password"}
@@ -102,6 +104,7 @@ function SignupForm(props) {
                         margin="normal"
                       />
                       <TextField
+                        required
                         error={errors.confirmpassword && touched.confirmpassword}
                         className = "signup-confirmpassword"
                         type="password"

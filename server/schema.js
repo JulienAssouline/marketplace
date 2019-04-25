@@ -59,7 +59,7 @@ type User {
   type Mutation {
     signUp(email: String!, password: String!, fullname: String, username: String, status: String, country: String, date_created: Date): SignupResponse!
     logIn(email: String!, password: String!): LoginResponse!
-    addItem(item_name: String!, item_type: String!, status: String!, price: Float, inventory: Int, owner_id: Int, date_created: Date, date_updated: Date, item_description: String!): AddItemResponse!
+    addItem(item_name: String!, item_type: String, status: String!, price: Float!, inventory: Int!, owner_id: Int, date_created: Date, date_updated: Date, item_description: String): AddItemResponse!
     buyItem(id: ID!, purchased_quantity: Int): buyItemResponse!
     updateItem(id: ID!, item_name: String, item_type: String, status: String, price: Float, inventory: Int, owner_id: Int, date_updated: Date, item_description: String): updateItemResponse!
     updateUser(id: ID!, email: String, password: String, fullname: String, username: String, status: String, country: String, date_updated: Date): updateUserResponse!

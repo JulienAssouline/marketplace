@@ -61,6 +61,7 @@ function LoginForm (props) {
                  return (
                    <Form className = "form" onSubmit={handleSubmit}>
                      <TextField
+                     required
                      error={errors.email && touched.email}
                      id= "email"
                      label= {(errors.email && touched.email) ? errors.email : "Email"}
@@ -72,6 +73,7 @@ function LoginForm (props) {
                      margin="normal"
                      />
                      <TextField
+                     required
                      error={errors.password && touched.password}
                      id = "password"
                      label = {errors.password && touched.password ? "Password is required!" : "Password"}
