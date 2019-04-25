@@ -11,6 +11,8 @@ import Users from "./components/Users"
 import LandingPage from "./components/LandingPage"
 import SignupForm from "./components/SignupForm"
 import LoginForm from "./components/LoginForm"
+import Home from "./components/Home"
+import AddItems from "./components/AddItems"
 
 
 
@@ -28,7 +30,9 @@ function App() {
       <Route path="/" exact component={LandingPage} />
       <Route path="/signup" exact component={SignupForm} />
       <Route path="/login" exact component={LoginForm} />
+      <Route path="/home" exact component = {Home} />
       <Route path="/items" exact component = {Items} />
+      <Route path = "/add-items" exact component = {AddItems} />
       <Route path="/users" exact component = {Users} />
     </Router>
     </div>

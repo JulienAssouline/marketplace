@@ -1,10 +1,12 @@
 import React from 'react';
 import { Formik, Form } from "formik";
-import * as Yup from 'yup';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
+
+
+import { signupValidation } from "./validationSchemas"
 
 
 const SIGN_UP_MUTATION = gql`
@@ -15,7 +17,7 @@ const SIGN_UP_MUTATION = gql`
    }
 `
 
-function SignupForm() {
+function SignupForm(props) {
   return(
     <div id = "signup">
     <h1> Sign Up Form </h1>
@@ -26,7 +28,8 @@ function SignupForm() {
       }}
       onCompleted = {(data) => {
         console.log("Data: ", data)
-        alert("signed up!")
+        // alert("signed up!")
+       props.history.push("/home")
       }}
     >
       { (signUp, {data}) =>(
@@ -44,16 +47,7 @@ function SignupForm() {
               alert(JSON.stringify(values, null, 2))
             }}
             validationSchema = {
-              Yup.object().shape({
-                email: Yup.string()
-                  .email('Invalid email')
-                  .required("Email is required!"),
-                username: Yup.string(),
-                password: Yup.string()
-                  .required("password is required!"),
-                confirmpassword: Yup.string()
-                  .required("confirm password is required!")
-              })
+              signupValidation
             }
             >
             {
@@ -70,6 +64,8 @@ function SignupForm() {
                   handleReset,
 
                 } = props;
+
+                console.log(window.innerWidth)
 
                 return (
                   <Form className = "form" onSubmit={handleSubmit}>
@@ -125,7 +121,8 @@ function SignupForm() {
                         color="primary"
                         className="outline something"
                         type="submit"
-                        disabled={values.confirmpassword !== values.password || isSubmitting}> Submit </Button>
+                        disabled={values.confirmpassword !== values.password || isSubmitting}> Submit
+                        </Button>
                       <Button
                         variant="contained"
                         color="secondary"

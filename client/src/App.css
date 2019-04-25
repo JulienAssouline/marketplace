@@ -10,8 +10,26 @@
 .form {
   display: flex;
   flex-flow: column nowrap;
-  width: 20%;
+  width: 40%;
   margin: 0 auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .form {
+    width: 40%
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .form {
+    width: 80%
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .form {
+    width: 80%
+  }
 }
 
 .invalid-feedback {
@@ -57,6 +75,8 @@ margin-right: 5px;
   display: inline-block;
   margin-top: 10px;
 }
+
+
 
 
 
