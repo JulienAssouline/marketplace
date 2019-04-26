@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 
 const authenticate = (app, req) => {
   if (app.get('SKIP_AUTH')) {
-    return 1
+    return 2
   }
   const cookieName = app.get('JWT_COOKIE_NAME')
   const jwtCookie = req.cookies[cookieName]

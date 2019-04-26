@@ -55,6 +55,7 @@ module.exports = {
       }
     },
     async addItem(parent, input, { req, app, postgres }) {
+          let userId = authenticate(app, req);
           let item = input.item_name.toLowerCase();
           let item_type = input.item_type
           let item_status = input.status.toLowerCase();

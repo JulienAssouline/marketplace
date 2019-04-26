@@ -14,6 +14,7 @@ import LoginForm from "./components/LoginForm"
 import Home from "./components/Home"
 import AddItems from "./components/AddItems"
 import UserItems from "./components/UserItems"
+import BuyItems from "./components/BuyItems"
 
 
 
@@ -36,6 +37,7 @@ function App() {
       <Route path = "/add-items" exact component = {AddItems} />
       <Route path="/users" exact component = {Users} />
       <Route path = "/user-items" exact component = {UserItems} />
+      <Route path = "/buy-items" exact component = {BuyItems} />
     </Router>
     </div>
     </ApolloProvider>

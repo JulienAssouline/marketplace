@@ -34,10 +34,6 @@ module.exports = {
         }
     },
 
-    async getUserActiveItems(parent, input, { req, app, postgres }) {
-
-    },
-
     async getAllItems(parent, input, { req, app, postgres }) {
         const itemGotten = {
         text: "SELECT id, item_name, owner_id FROM bazaar.items"
@@ -46,6 +42,20 @@ module.exports = {
       console.log(insertItem)
 
       return insertItem.rows
+
+    },
+    async getAllActiveItems(parent, input, { req, app, postgres }) {
+
+        const active_status = "active"
+
+        const allActiveItems = {
+        text: "SELECT * FROM bazaar.items WHERE status = $1",
+        values: [active_status]
+      }
+
+      const results = await postgres.query(allActiveItems)
+
+      return results.rows
 
     },
     async getUser(parent, input, { req, app, postgres }) {

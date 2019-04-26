@@ -115,34 +115,36 @@ function AddItems() {
                         onBlur = {handleBlur}
                         margin="normal"
                       />
-                      <TextField
-                        required
-                        error={errors.price && touched.price}
-                        id= "price"
-                        name = "price"
-                        value = {values.price}
-                        label= {(errors.price && touched.price) ? errors.price : "Price"}
-                        className = "additem-price"
-                        onChange={setFieldValue}
-                        onBlur = {handleBlur}
-                        margin="normal"
-                        InputProps={{
-                          inputComponent: NumberFormatCustom,
-                          startAdornment: <InputAdornment position="start">$</InputAdornment>
-                        }}
-                      />
-                      <TextField
-                        required
-                        error={errors.inventory && touched.inventory}
-                        id= "inventory"
-                        value = {values.inventory}
-                        type = "number"
-                        label= {(errors.inventory && touched.inventory) ? errors.inventory : "Inventory"}
-                        className = "additem-inventory"
-                        onChange={handleChange}
-                        onBlur = {handleBlur}
-                        margin="normal"
-                      />
+                      <div className = "price-inventory-wrapper">
+                        <TextField
+                          required
+                          error={errors.price && touched.price}
+                          id= "price"
+                          name = "price"
+                          value = {values.price}
+                          label= {(errors.price && touched.price) ? errors.price : "Price"}
+                          className = "additem price"
+                          onChange={setFieldValue}
+                          onBlur = {handleBlur}
+                          margin="normal"
+                          InputProps={{
+                            inputComponent: NumberFormatCustom,
+                            startAdornment: <InputAdornment position="start">$</InputAdornment>
+                          }}
+                        />
+                        <TextField
+                          required
+                          error={errors.inventory && touched.inventory}
+                          id= "inventory"
+                          value = {values.inventory}
+                          type = "number"
+                          label= {(errors.inventory && touched.inventory) ? errors.inventory : "Inventory"}
+                          className = "additem inventory"
+                          onChange={handleChange}
+                          onBlur = {handleBlur}
+                          margin="normal"
+                        />
+                      </div>
                       <TextField
                         id= "item_description"
                         value = {values.item_description}
@@ -154,23 +156,23 @@ function AddItems() {
                         onBlur = {handleBlur}
                       />
                       <div className = "toggle-wrapper">
-                      <FormLabel required component="legend"> Sell item to marketplace? </FormLabel>
-                      <FormControlLabel
-                         className = "status toggle"
-                         control={
-                            <Switch
-                              id = "status"
-                              checked={
-                                values.status ? values.status = true : values.status = false
-                              }
-                              onChange={handleChange}
-                              value={values.status}
-                              onBlur = {handleBlur}
-                              margin = "normal"
-                            />
-                          }
-                          label={ values.status ? "Yes" : "Not yet"}
-                        />
+                        <FormLabel required component="legend"> Sell item to marketplace? </FormLabel>
+                        <FormControlLabel
+                           className = "status toggle"
+                           control={
+                              <Switch
+                                id = "status"
+                                checked={
+                                  values.status ? values.status = true : values.status = false
+                                }
+                                onChange={handleChange}
+                                value={values.status}
+                                onBlur = {handleBlur}
+                                margin = "normal"
+                              />
+                            }
+                            label={ values.status ? "Yes" : "Not yet"}
+                          />
                         </div>
                       <br />
                       <div className = "buttons_group">

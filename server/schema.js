@@ -4,32 +4,16 @@ module.exports = gql`
 
   scalar Date
 
-  type Owner {
-    id: ID!,
-    fullname: String
-  }
-
   type Query {
     getUserItem(id: Int): Item!
     getAllItems: [Item!]
-    getUserActiveItems: [activeItems!]
-    getUser(id: Int): User!
+    getUser(id: ID!): User!
     getUsers: [User!]
+    getAllActiveItems: [Item!]
     getPurchasedItems: [purchasedItem!]
     getTransaction(id: Int): Transaction!
     getTransactions: [Transaction!]
   }
-
-type activeItems {
-  id: Int,
-  item_name: String,
-  item_type: String,
-  status: String,
-  price: Float,
-  inventory: Int,
-  owner: Owner,
-  transaction_id: Int
-}
 
 type Transaction {
   id: Int,
@@ -54,7 +38,9 @@ type User {
   username: String,
   status: String,
   country: String,
-  items: [Item]!
+  items: [Item]!,
+  itemsActive: [Item]!,
+  itemsInactive: [Item]!
 }
 
 type Item{
@@ -64,7 +50,8 @@ type Item{
   status: String,
   price: Float,
   inventory: Int,
-  owner: Owner,
+  owner: User!,
+  item_description: String,
   purchased_quantity: Int,
   transaction_id: Int
 }

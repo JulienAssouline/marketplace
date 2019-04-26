@@ -57,10 +57,28 @@ margin-right: 5px;
   cursor: not-allowed;
 }
 
+.total-landingpage {
+  background-color: #ffecc6;
+  height:100vh;
+}
+
 .landingpage {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+}
+
+.hero-display {
+  display: flex;
+
+}
+
+.title-hero {
+  align-self: center;
+  max-width: 24em;
+  text-align: left;
+  margin-left: 100px
+
 }
 
 .linkwrapper > * {
@@ -95,6 +113,33 @@ margin-right: 5px;
   display: flex;
   align-items: center;
 }
+
+.price-inventory-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.additem.inventory {
+  width: 100%;
+   margin-left: 10px;
+
+}
+
+.additem.price {
+  width: 100%;
+}
+
+.buy-items-display {
+  width: 100%;
+  text-align: left;
+  margin-left: 20px;
+
+}
+.buy.item.button {
+  justify-content: left;
+}
+
+
 
 
 
