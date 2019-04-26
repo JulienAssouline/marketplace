@@ -12,12 +12,24 @@ module.exports = gql`
   type Query {
     getUserItem(id: Int): Item!
     getAllItems: [Item!]
+    getUserActiveItems: [activeItems!]
     getUser(id: Int): User!
     getUsers: [User!]
     getPurchasedItems: [purchasedItem!]
     getTransaction(id: Int): Transaction!
     getTransactions: [Transaction!]
   }
+
+type activeItems {
+  id: Int,
+  item_name: String,
+  item_type: String,
+  status: String,
+  price: Float,
+  inventory: Int,
+  owner: Owner,
+  transaction_id: Int
+}
 
 type Transaction {
   id: Int,
@@ -35,6 +47,16 @@ type purchasedItem{
   transaction_id: Int
 }
 
+type User {
+  id: Int,
+  email: String,
+  fullname: String,
+  username: String,
+  status: String,
+  country: String,
+  items: [Item]!
+}
+
 type Item{
   id: Int,
   item_name: String,
@@ -45,15 +67,6 @@ type Item{
   owner: Owner,
   purchased_quantity: Int,
   transaction_id: Int
-}
-
-type User {
-  id: Int,
-  email: String,
-  fullname: String,
-  username: String,
-  status: String,
-  country: String
 }
 
   type Mutation {

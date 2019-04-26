@@ -7,11 +7,18 @@
   padding-left: 10px;
 }
 
+.add-item {
+
+
+}
+
 .form {
   display: flex;
   flex-flow: column nowrap;
   width: 40%;
   margin: 0 auto;
+  box-shadow: 0 0 10px #ccc;
+  padding: 30px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -75,6 +82,20 @@ margin-right: 5px;
   display: inline-block;
   margin-top: 10px;
 }
+
+.status.toggle {
+ margin-left: auto;
+}
+
+.status-description {
+  text-align: left;
+}
+
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+}
+
 
 
 

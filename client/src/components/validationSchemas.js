@@ -27,6 +27,8 @@ export const signupValidation = Yup.object().shape({
           .required("Price is required!"),
         inventory: Yup.number()
           .required("Inventory is required!"),
+        status: Yup.boolean()
+          .required("Status is required"),
         item_description: Yup.string()
 
        })

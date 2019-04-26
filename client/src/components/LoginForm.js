@@ -18,7 +18,7 @@ const LOG_IN_MUTATION = gql`
 function LoginForm (props) {
   return (
     <div id = "login">
-    <h1> Login </h1>
+    <br />
     <Mutation
       mutation = {LOG_IN_MUTATION}
       onError = {(error) => {
@@ -60,6 +60,7 @@ function LoginForm (props) {
 
                  return (
                    <Form className = "form" onSubmit={handleSubmit}>
+                     <h1> Login </h1>
                      <TextField
                      required
                      error={errors.email && touched.email}

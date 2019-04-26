@@ -20,7 +20,7 @@ const SIGN_UP_MUTATION = gql`
 function SignupForm(props) {
   return(
     <div id = "signup">
-    <h1> Sign Up Form </h1>
+    <br />
     <Mutation
       mutation = {SIGN_UP_MUTATION}
       onError={(error) => {
@@ -69,6 +69,7 @@ function SignupForm(props) {
 
                 return (
                   <Form className = "form" onSubmit={handleSubmit}>
+                      <h1> Sign Up Form </h1>
                       <TextField
                         id= "username"
                         label= "Username"

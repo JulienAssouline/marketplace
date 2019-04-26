@@ -13,6 +13,7 @@ import SignupForm from "./components/SignupForm"
 import LoginForm from "./components/LoginForm"
 import Home from "./components/Home"
 import AddItems from "./components/AddItems"
+import UserItems from "./components/UserItems"
 
 
 
@@ -34,6 +35,7 @@ function App() {
       <Route path="/items" exact component = {Items} />
       <Route path = "/add-items" exact component = {AddItems} />
       <Route path="/users" exact component = {Users} />
+      <Route path = "/user-items" exact component = {UserItems} />
     </Router>
     </div>
     </ApolloProvider>

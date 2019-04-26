@@ -21,7 +21,7 @@ exports.up = pgm => {
     "id" SERIAL PRIMARY KEY,
     "item_name" TEXT NOT NULL,
     "item_type" TEXT,
-    "status" TEXT NOT NULL,
+    "status" TEXT,
     "price" NUMERIC,
     "inventory" INT,
     "owner_id" INT,

@@ -53,11 +53,11 @@ mutation {
 #   }
 # }
 
-# mutation {
-#   signUp(email: "julien@cool.com", password: "hello", fullname: "name", username: "no wat", status:"true", country: "canada") {
-#     message
-#   }
-# }
+ mutation {
+   signUp(email: "julien@cool.com", password: "hello", fullname: "name", username: "no wat", status:"true", country: "canada") {
+    message
+   }
+ }
 
 # mutation {
 #   updateItem(id: 5, item_name: "jeep") {

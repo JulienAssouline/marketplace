@@ -34,6 +34,10 @@ module.exports = {
         }
     },
 
+    async getUserActiveItems(parent, input, { req, app, postgres }) {
+
+    },
+
     async getAllItems(parent, input, { req, app, postgres }) {
         const itemGotten = {
         text: "SELECT id, item_name, owner_id FROM bazaar.items"
@@ -73,7 +77,7 @@ module.exports = {
     },
     async getUsers(parent, input, { req, app, postgres }) {
         const usersQuery = {
-        text: "SELECT email FROM bazaar.users"
+        text: "SELECT * FROM bazaar.users"
       }
 
       const allUsers = await postgres.query(usersQuery)
