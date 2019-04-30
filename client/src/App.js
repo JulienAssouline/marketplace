@@ -16,12 +16,6 @@ import AddItems from "./components/AddItems"
 import UserItems from "./components/UserItems"
 import BuyItems from "./components/BuyItems"
 
-
-
-              // <Route path="/about/" component={About} />
-              // <Route path="/Contact/" component={Contact} />
-
-
 function App() {
 
   return (
@@ -32,7 +26,8 @@ function App() {
       <Route path="/" exact component={LandingPage} />
       <Route path="/signup" exact component={SignupForm} />
       <Route path="/login" exact component={LoginForm} />
-      <Route path="/home" exact component = {Home} />
+      <Route path="/home" component = {Home} />
+      <Route path="/home/items" exact component={UserItems}/>
       <Route path="/items" exact component = {Items} />
       <Route path = "/add-items" exact component = {AddItems} />
       <Route path="/users" exact component = {Users} />

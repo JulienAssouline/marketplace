@@ -88,8 +88,6 @@ function AddItems() {
 
                   } = props;
 
-                  console.log(values.status)
-
                   return (
                     <Form className = "form" onSubmit={handleSubmit}>
                     <h1> Add Items </h1>
@@ -179,7 +177,7 @@ function AddItems() {
                         <Button
                           variant="contained"
                           color="primary"
-                          className="outline something"
+                          className="submit button"
                           type="submit"
                           disabled={isSubmitting}> Submit
                           </Button>

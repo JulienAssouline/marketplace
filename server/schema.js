@@ -5,9 +5,9 @@ module.exports = gql`
   scalar Date
 
   type Query {
-    getUserItem(id: Int): Item!
+    getMyItems: [Item!]
     getAllItems: [Item!]
-    getUser(id: ID!): User!
+    getUserProfile: User!
     getUsers: [User!]
     getAllActiveItems: [Item!]
     getPurchasedItems: [purchasedItem!]

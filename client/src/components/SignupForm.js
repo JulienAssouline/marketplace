@@ -10,8 +10,8 @@ import { signupValidation } from "./validationSchemas"
 
 
 const SIGN_UP_MUTATION = gql`
-  mutation signUpMutation($email: String!, $username: String!, $password: String!) {
-     signUp(email: $email, username: $username, password: $password) {
+  mutation signUpMutation($email: String!, $fullname: String!, $username: String!, $password: String!, $country: String!) {
+     signUp(email: $email, fullname: $fullname username: $username, password: $password, country: $country) {
       message
      }
    }
@@ -34,11 +34,12 @@ function SignupForm(props) {
     >
       { (signUp, {data}) =>(
         <Formik
-            initialValues = {{ email: "", username: "",  password: "", confirmpassword: '' }}
+            initialValues = {{ email: "", username: "", fullname: "", country: "", password: "", confirmpassword: '' }}
             onSubmit={(values, {setSubmitting}) => {
-              console.log(values)
                 signUp({variables: {
                   email: values.email,
+                  fullname: values.fullname,
+                  country: values.country,
                   username: values.username,
                   password: values.password
                 }
@@ -65,16 +66,34 @@ function SignupForm(props) {
 
                 } = props;
 
-                console.log(window.innerWidth)
-
                 return (
                   <Form className = "form" onSubmit={handleSubmit}>
                       <h1> Sign Up Form </h1>
                       <TextField
                         id= "username"
-                        label= "Username"
+                        label= "User Name"
                         value = {values.username}
                         className = "signup-username"
+                        onChange={handleChange}
+                        onBlur = {handleBlur}
+                        type = "text"
+                        margin="normal"
+                        />
+                      <TextField
+                        id= "fullname"
+                        label= "Full Name"
+                        value = {values.fullname}
+                        className = "signup-fullname"
+                        onChange={handleChange}
+                        onBlur = {handleBlur}
+                        type = "text"
+                        margin="normal"
+                        />
+                      <TextField
+                        id= "country"
+                        label= "Country"
+                        value = {values.country}
+                        className = "signup-country"
                         onChange={handleChange}
                         onBlur = {handleBlur}
                         type = "text"
@@ -118,12 +137,13 @@ function SignupForm(props) {
                       />
                         <label>{touched.confirmpassword && values.confirmpassword !== values.password && <div className="invalid-feedback">{"Passwords don't match!"}</div>}
                       </label>
+
                     <br/>
                     <div className = "buttons_group">
                       <Button
                         variant="contained"
                         color="primary"
-                        className="outline something"
+                        className="submit button"
                         type="submit"
                         disabled={values.confirmpassword !== values.password || isSubmitting}> Submit
                         </Button>

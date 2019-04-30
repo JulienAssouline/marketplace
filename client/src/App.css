@@ -2,14 +2,13 @@
   text-align: center;
 }
 
+body {
+  background-color: #ffecc6;
+}
+
 .list {
   text-align: left;
   padding-left: 10px;
-}
-
-.add-item {
-
-
 }
 
 .form {
@@ -17,7 +16,8 @@
   flex-flow: column nowrap;
   width: 40%;
   margin: 0 auto;
-  box-shadow: 0 0 10px #ccc;
+/*  box-shadow: 0 0 10px #ccc;
+*/  border: 1px solid black;
   padding: 30px;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .buttons_group{
-  width: 100%
+  width: 100%;
 
 }
 .outline.something {
@@ -68,6 +68,46 @@ margin-right: 5px;
   justify-content: space-between;
 }
 
+.signup.button {
+  background-color: black;
+  border-radius: 0px;
+  box-shadow: none;
+  padding: 0.8em 1.8em;
+}
+
+.signup.button:hover {
+  opacity: 0.7;
+  background-color: black;
+}
+
+.submit.button {
+  margin-right: 5px;
+  background-color: black;
+  border-radius: 0px;
+  box-shadow: none;
+}
+
+.submit.button:hover {
+  opacity: 0.7;
+  background-color: black;
+}
+
+.buy.item.button {
+  background-color: black;
+  border-radius: 0px;
+  box-shadow: none;
+  width: 100%;
+
+}
+
+.buy.item.button:hover {
+  opacity: 0.7;
+  background-color: black;
+}
+.reset.button {
+  border-radius: 0px;
+}
+
 .hero-display {
   display: flex;
 
@@ -79,6 +119,10 @@ margin-right: 5px;
   text-align: left;
   margin-left: 100px
 
+}
+
+.map {
+  margin: auto;
 }
 
 .linkwrapper > * {
@@ -95,10 +139,38 @@ margin-right: 5px;
   margin-right: 40px;
   margin-top: 10px;
 }
+
+#login {
+  background-color: #ffecc6;
+  height:100vh;
+
+}
+
+.add-item {
+    background-color: #ffecc6;
+  height:100vh;
+}
+
+#buy-items {
+  background-color: #ffecc6;
+  height:120vh;
+}
+
+#home {
+  background-color: #ffecc6;
+}
+
+#signup {
+  background-color: #ffecc6;
+  height:100vh;
+
+}
+
 .signup-link {
   margin-right: 40px;
   display: inline-block;
   margin-top: 10px;
+  text-decoration: none;
 }
 
 .status.toggle {
@@ -112,6 +184,10 @@ margin-right: 5px;
 .toggle-wrapper {
   display: flex;
   align-items: center;
+}
+
+a {
+  text-decoration: none;
 }
 
 .price-inventory-wrapper {
@@ -129,15 +205,61 @@ margin-right: 5px;
   width: 100%;
 }
 
+.buy-items-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    justify-content: center;
+}
+
 .buy-items-display {
-  width: 100%;
-  text-align: left;
-  margin-left: 20px;
+  width: 70%;
+  margin: 0 auto;
+  padding: 30px;
+  border: 1px solid black;
+  margin-bottom: 20px;
 
 }
-.buy.item.button {
-  justify-content: left;
+
+@media only screen and (max-width: 780px) {
+  .buy-items-wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
 }
+
+@media only screen and (max-width: 480px) {
+  .buy-items-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+.buy-item-input-group {
+  display: flex;
+}
+
+
+.userInfo {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 40%;
+  margin: 0 auto;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.my-items {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 40%;
+  margin: 0 auto;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.password-check {
+  color: red;
+}
+
 
 
 

@@ -33,7 +33,8 @@ exports.up = pgm => {
     ),
   pgm.sql(`
     CREATE TABLE "bazaar"."purchased_items"(
-    "item_id" SERIAL PRIMARY KEY,
+    "id" SERIAL PRIMARY KEY,
+    "item_id" INT references "bazaar"."items"(id),
     "purchased_from_id" INT,
     "shipping_status" TEXT,
     "date_of_purchase" DATE DEFAULT CURRENT_DATE,

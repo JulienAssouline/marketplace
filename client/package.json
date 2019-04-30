@@ -10,6 +10,12 @@
     "apollo-link-error": "^1.1.10",
     "apollo-link-http": "^1.5.14",
     "apollo-link-state": "^0.4.2",
+    "d3-array": "^2.0.3",
+    "d3-fetch": "^1.1.2",
+    "d3-geo": "^1.11.3",
+    "d3-polygon": "^1.0.5",
+    "d3-selection": "^1.4.0",
+    "d3-timer": "^1.0.9",
     "formik": "^1.5.2",
     "graphql": "^14.2.1",
     "graphql-tag": "^2.10.1",
@@ -19,6 +25,7 @@
     "react-number-format": "^4.0.7",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
+    "topojson": "^3.0.2",
     "yup": "^0.27.0"
   },
   "scripts": {

@@ -2,8 +2,12 @@ const authenticate = require('../authenticate')
 
 module.exports = {
   Query: {
-    async getUserItem(parent, input, { req, app, postgres }) {
+    async getMyItems(parent, input, { req, app, postgres }) {
         let itemId = input.id
+        const user_id = authenticate(app, req);
+
+        console.log(user_id)
+
 
         const userItem = {
         text: "SELECT * FROM bazaar.items WHERE id = $1",
@@ -35,6 +39,8 @@ module.exports = {
     },
 
     async getAllItems(parent, input, { req, app, postgres }) {
+        const user_id = authenticate(app, req);
+
         const itemGotten = {
         text: "SELECT id, item_name, owner_id FROM bazaar.items"
       }
@@ -45,6 +51,14 @@ module.exports = {
 
     },
     async getAllActiveItems(parent, input, { req, app, postgres }) {
+
+        const user_id = authenticate(app, req);
+
+
+
+        // if(user_id === "no user") {
+        //     throw
+        // }
 
         const active_status = "active"
 
@@ -58,8 +72,8 @@ module.exports = {
       return results.rows
 
     },
-    async getUser(parent, input, { req, app, postgres }) {
-         let userId = input.id
+    async getUserProfile(parent, input, { req, app, postgres }) {
+         const userId = authenticate(app, req);
 
           const user = {
           text: "SELECT * FROM bazaar.users WHERE id = $1",
@@ -67,23 +81,10 @@ module.exports = {
         }
 
         const userGotten = await postgres.query(user)
-        console.log(userGotten.rows[0])
+        // console.log("GetUserProfile ", userGotten.rows[0])
 
-        const { id,
-            email,
-            fullname,
-            username,
-            status,
-            country } = userGotten.rows[0]
+        return userGotten.rows[0]
 
-        return {
-            id,
-            email,
-            fullname,
-            username,
-            status,
-            country
-        }
     },
     async getUsers(parent, input, { req, app, postgres }) {
         const usersQuery = {
@@ -95,6 +96,7 @@ module.exports = {
     },
 
     async getTransaction(parent, input, { req, app, postgres }) {
+         const user_id = authenticate(app, req);
          let transaction_id = input.id
 
           const queryTransaction = {

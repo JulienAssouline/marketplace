@@ -1,4 +1,4 @@
-import React from 'react';
+import React,  { useState, useEffect} from 'react';
 import { Formik, Form } from "formik";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField'
@@ -16,17 +16,20 @@ const LOG_IN_MUTATION = gql`
 `
 
 function LoginForm (props) {
+  const [error, setError] = useState("") ;
   return (
     <div id = "login">
     <br />
     <Mutation
       mutation = {LOG_IN_MUTATION}
       onError = {(error) => {
+        setError("Email or password is incorrect")
         console.log(error)
       }}
       onCompleted = {(data) => {
         console.log("Data: ", data)
-        props.history.push("/home")
+        console.log(error)
+        if (error === "") props.history.push("/home")
       }}
     >
 
@@ -34,6 +37,7 @@ function LoginForm (props) {
       <Formik
              initialValues = {{ email: "", password: ""}}
              onSubmit={(values, {setSubmitting}) => {
+               setError("")
                logIn({variables: {
                 email: values.email,
                 password: values.password
@@ -85,11 +89,12 @@ function LoginForm (props) {
                      type = "password"
                      margin = "normal"
                      />
+                     <p className = "password-check"> {error} </p>
                      <br/>
                      <Button
                      variant="contained"
                      color="primary"
-                     className="submit_button"
+                     className="submit button"
                      type="submit"
                      margin = "normal"
                      >

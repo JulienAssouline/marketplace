@@ -19,7 +19,7 @@ module.exports = {
       let hashedpassword = await bcrypt.hash(input.password, saltRounds);
       let fullname = input.fullname
       let username = input.username
-      let status = input.status
+      let status = "active"
       let country = input.country
       let date = input.date_created
 
@@ -30,8 +30,24 @@ module.exports = {
 
       try  {
         let insertResult = await postgres.query(newUserInsert);
+        console.log(insertResult.rows)
+
+
+        let myjwttoken = await jwt.sign({
+          email: insertResult.rows[0].email,
+          id: insertResult.rows[0].id,
+          exp: Math.floor(Date.now() / 1000) + (1000*1000),
+
+        }, "secret");
+        console.log("my jwt", myjwttoken)
+
+        req.res.cookie("bazaar_app", myjwttoken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production"
+        })
+
          return {
-          message: hashedpassword
+          message: "Yes!"
         }
       }
       catch(error){
@@ -42,16 +58,45 @@ module.exports = {
     },
 
     async logIn(parent, input, { req, app, postgres }) {
-      let loginEmail = input.email.toLowerCase();
 
-      const userPassword = {
-        text: "SELECT date_created, password FROM bazaar.users WHERE email = $1",
-        values: [loginEmail]
+      try {
+         let loginEmail = input.email;
+
+         let password = input.password
+
+         const userPassword = {
+           text: "SELECT id, email, date_created, password FROM bazaar.users WHERE email = $1",
+           values: [loginEmail]
+         }
+        const loggedIn = await postgres.query(userPassword)
+
+        console.log(loggedIn.rows)
+
+
+        let myjwttoken = await jwt.sign({
+          email: loggedIn.rows[0].email,
+          id: loggedIn.rows[0].id,
+          exp: Math.floor(Date.now() / 1000) + (1000*1000),
+
+        }, "secret");
+        console.log("my jwt", myjwttoken)
+
+        req.res.cookie("bazaar_app", myjwttoken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production"
+        })
+
+
+
+        if (loggedIn.rows.length === 0) throw "email or password is incorrect"
+
+        return {
+          message: "logged in"
+        }
       }
-     const loggedIn = await postgres.query(userPassword)
-
-      return {
-        message: "logged in"
+      catch(error) {
+        console.log(error)
+        throw "email or password is incorrect"
       }
     },
     async addItem(parent, input, { req, app, postgres }) {
@@ -61,16 +106,17 @@ module.exports = {
           let item_status = input.status.toLowerCase();
           let price = input.price
           let inventory = input.inventory
-          let owner_id = input.owner_id
+          let owner_id = userId
           let item_description = input.item_description
-
 
           const userItem = {
             text: "INSERT INTO bazaar.items (item_name, item_type, status, price, inventory, owner_id, item_description) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
             values: [item, item_type, item_status, price, inventory, owner_id, item_description]
           }
 
+
           const insertItem = await postgres.query(userItem)
+
 
           return {
             message: `Item ${item} has been added`
@@ -85,8 +131,8 @@ module.exports = {
 3) Stripe
 4) Insert into purchased items
       */
+      const user_id = authenticate(app, req);
 
-      let user_id = 1; // authenticate(req.headers['Authorization']) id of person who made the query
 
       let item_id = input.id,
           owner_id = user_id,
@@ -105,6 +151,12 @@ module.exports = {
 
      let purchased_from_id = item.owner_id
      let newInventory = item.inventory - 1
+
+     console.log("item_id", input.id)
+      console.log("owner_id", user_id)
+      console.log("shipping_status", shipping_status)
+      console.log("purchased_from_id", purchased_from_id)
+
 
       const boughtItemQuery = {
         text: "INSERT INTO bazaar.purchased_items (item_id, purchased_from_id, owner_id, shipping_status, purchased_quantity, transaction_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
@@ -135,6 +187,7 @@ module.exports = {
 
      async updateItem(parent, input, { req, app, postgres }) {
 
+      const user_id = authenticate(app, req);
       let item_name = input.item_name
       let item_id = input.id
 
@@ -154,6 +207,7 @@ module.exports = {
      },
 
      async updateUser(parent, input, { req, app, postgres }) {
+        const user_id = authenticate(app, req);
         let user_id = input.id
         let fullname = input.fullname
 
@@ -180,7 +234,6 @@ module.exports = {
       }
 
      const removedItemValue = await postgres.query(removedItems)
-     console.log(removedItemValue)
 
       const deleteItem = {
         text: "DELETE FROM bazaar.items WHERE id = $1",
