@@ -4,16 +4,12 @@ module.exports = gql`
 
   scalar Date
 
-  type Owner {
-    id: ID!,
-    fullname: String
-  }
-
   type Query {
-    getUserItem(id: Int): Item!
+    getMyItems: [Item!]
     getAllItems: [Item!]
-    getUser(id: Int): User!
+    getUserProfile: User!
     getUsers: [User!]
+    getAllActiveItems: [Item!]
     getPurchasedItems: [purchasedItem!]
     getTransaction(id: Int): Transaction!
     getTransactions: [Transaction!]
@@ -35,6 +31,18 @@ type purchasedItem{
   transaction_id: Int
 }
 
+type User {
+  id: Int,
+  email: String,
+  fullname: String,
+  username: String,
+  status: String,
+  country: String,
+  items: [Item]!,
+  itemsActive: [Item]!,
+  itemsInactive: [Item]!
+}
+
 type Item{
   id: Int,
   item_name: String,
@@ -42,24 +50,16 @@ type Item{
   status: String,
   price: Float,
   inventory: Int,
-  owner: Owner,
+  owner: User!,
+  item_description: String,
   purchased_quantity: Int,
   transaction_id: Int
-}
-
-type User {
-  id: Int,
-  email: String,
-  fullname: String,
-  username: String,
-  status: String,
-  country: String
 }
 
   type Mutation {
     signUp(email: String!, password: String!, fullname: String, username: String, status: String, country: String, date_created: Date): SignupResponse!
     logIn(email: String!, password: String!): LoginResponse!
-    addItem(item_name: String!, item_type: String!, status: String!, price: Float, inventory: Int, owner_id: Int, date_created: Date, date_updated: Date, item_description: String!): AddItemResponse!
+    addItem(item_name: String!, item_type: String, status: String!, price: Float!, inventory: Int!, owner_id: Int, date_created: Date, date_updated: Date, item_description: String): AddItemResponse!
     buyItem(id: ID!, purchased_quantity: Int): buyItemResponse!
     updateItem(id: ID!, item_name: String, item_type: String, status: String, price: Float, inventory: Int, owner_id: Int, date_updated: Date, item_description: String): updateItemResponse!
     updateUser(id: ID!, email: String, password: String, fullname: String, username: String, status: String, country: String, date_updated: Date): updateUserResponse!

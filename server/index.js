@@ -19,7 +19,7 @@ app.set('PG_PASSWORD', process.env.PG_PASSWORD || '')
 app.set('PG_DB', process.env.PG_DB || 'postgres')
 app.set('JWT_SECRET', process.env.JWT_SECRET || 'DEV_SECRET')
 
-app.set('JWT_COOKIE_NAME', 'token')
+app.set('JWT_COOKIE_NAME', 'mycookie')
 app.use(cookieParser())
 
 if (process.env.NODE_ENV === 'production') {
