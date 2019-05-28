@@ -37,17 +37,16 @@ if (process.env.NODE_ENV === 'production') {
 
 }
 
-if (process.env.NODE_ENV !== 'production') {
-  // Allow requests from dev server address
-  const corsConfig = {
-    origin: 'http://localhost:3000',
-    credentials: true,
-  }
-  app.set('CORS_CONFIG', corsConfig)
-
-  // Allow requests from dev server address
-  app.use(cors(corsConfig))
+// Allow requests from dev server address
+const corsConfig = {
+  origin: 'http://localhost:3000',
+  credentials: true,
 }
+app.set('CORS_CONFIG', corsConfig)
+
+// Allow requests from dev server address
+app.use(cors(corsConfig))
+
 
 resolvers = resolvers()
 
