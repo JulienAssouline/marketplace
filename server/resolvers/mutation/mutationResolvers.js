@@ -6,7 +6,6 @@ const authenticate = require('../authenticate')
 const buildUpdate = require('../../utils/buildUpdate')
 
 /* For Emergencies only */
-const emergencysignup = require('./signup')  /* <-- Use Me for emergencies */
 /* For Emergencies only */
 
 const saltRounds = bcrypt.genSaltSync(12)
