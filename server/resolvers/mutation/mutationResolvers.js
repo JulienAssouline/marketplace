@@ -1,6 +1,5 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt-nodejs')
 const jwt = require('jsonwebtoken')
-const saltRounds = 12
 const crypto = require('crypto')
 const Promise = require('bluebird')
 const authenticate = require('../authenticate')
@@ -10,13 +9,14 @@ const buildUpdate = require('../../utils/buildUpdate')
 const emergencysignup = require('./signup')  /* <-- Use Me for emergencies */
 /* For Emergencies only */
 
+const saltRounds = bcrypt.genSaltSync(12)
 
 module.exports = {
   Mutation: {
     async signUp(parent, input, { req, app, postgres }) {
 
       let email = input.email.toLowerCase();
-      let hashedpassword = await bcrypt.hash(input.password, saltRounds);
+      let hashedpassword = bcrypt.hashSync(input.password, saltRounds);
       let fullname = input.fullname
       let username = input.username
       let status = "active"
@@ -27,6 +27,8 @@ module.exports = {
         text: "INSERT INTO bazaar.users (email, password, fullname, username, status, country) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
         values: [email, hashedpassword, fullname , username, status, country]
       }
+
+      console.log(username, status, country)
 
       try  {
         let insertResult = await postgres.query(newUserInsert);
@@ -70,7 +72,9 @@ module.exports = {
          }
         const loggedIn = await postgres.query(userPassword)
 
-        console.log(loggedIn.rows)
+        const passwordCheck = bcrypt.compareSync(password, loggedIn.rows[0].password)
+
+        if (loggedIn.rows.length === 0 || passwordCheck === false) throw "email or password is incorrect"
 
 
         let myjwttoken = await jwt.sign({
@@ -85,10 +89,6 @@ module.exports = {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production"
         })
-
-
-
-        if (loggedIn.rows.length === 0) throw "email or password is incorrect"
 
         return {
           message: "logged in"
