@@ -27,7 +27,6 @@ if (process.env.NODE_ENV === 'production') {
 
   // Serve the static front-end from /public when deployed
   app.use(express.static(root))
-  app.use(fallback('index.html', { root }))
 }
 
 if (process.env.NODE_ENV !== 'production') {
