@@ -208,7 +208,7 @@ module.exports = {
 
      async updateUser(parent, input, { req, app, postgres }) {
         const user_id = authenticate(app, req);
-        let user_id = input.id
+        // let user_id = input.id
         let fullname = input.fullname
 
         const updateObject = {
