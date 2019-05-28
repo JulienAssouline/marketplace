@@ -1,10 +1,10 @@
 {
   "db": {
-    "user": "bazaar_user",
-    "password": "Melchior1_",
-    "host": "bazaardb.cif6vj2k6hsm.us-east-2.rds.amazonaws.com",
+    "user": "postgres",
+    "password": "",
+    "host": "localhost",
     "port": 5432,
-    "database": "bazaardb",
+    "database": "postgres",
     "schema": "bazaar"
   }
 }

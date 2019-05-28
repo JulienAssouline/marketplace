@@ -22,7 +22,12 @@ let host, user, password, database, idleTimeoutMillis, connectionTimeoutMillis
      connectionTimeoutMillis = 2000
   }
   else if(process.env.NODE_ENV === "production") {
-
+     host = process.env.PG_HOST || 'localhost'
+     user =  process.env.PG_USER || 'postgres'
+     password = process.env.PG_PASSWORD || ''
+     database = process.env.PG_DB || 'postgres'
+     idleTimeoutMillis = 30000
+     connectionTimeoutMillis = 2000
   }
 
 

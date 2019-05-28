@@ -1,12 +1,12 @@
 {
   "scripts": {
     "db:up": "yarn node-pg-migrate up --create-schema",
-    "db:drop": "PGPASSWORD=Melchior1_ psql -h bazaardb.cif6vj2k6hsm.us-east-2.rds.amazonaws.com -U bazaar_user -d bazaardb -c \"DROP SCHEMA IF EXISTS \\\"bazaar\\\" CASCADE\"",
+    "db:drop": "psql -U postgres -d postgres -c \"DROP SCHEMA IF EXISTS \\\"bazaar\\\" CASCADE\"",
     "db:reset": "yarn db:drop && yarn db:up",
     "db:seed": "node seeds/index.js",
     "db:resetandseed": "yarn db:reset && yarn db:seed",
     "test": "jest",
-    "start": "node index.js",
+    "start": "NODE_ENV=production node index.js",
     "start:dev": "nodemon index.js"
   },
   "dependencies": {
