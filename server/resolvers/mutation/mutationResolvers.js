@@ -44,7 +44,7 @@ module.exports = {
 
         req.res.cookie("bazaar_app", myjwttoken, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === "production"
+          secure: false
         })
 
          return {
@@ -86,7 +86,7 @@ module.exports = {
 
         req.res.cookie("bazaar_app", myjwttoken, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === "production"
+          secure: false
         })
 
         return {
