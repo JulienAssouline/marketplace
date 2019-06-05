@@ -41,6 +41,7 @@ if (process.env.NODE_ENV === 'production') {
 const corsConfig = {
   origin: 'http://localhost:3000',
   credentials: true,
+  methods: "GET,POST",
 }
 app.set('CORS_CONFIG', corsConfig)
 
